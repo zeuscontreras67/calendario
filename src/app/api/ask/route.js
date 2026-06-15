@@ -27,23 +27,41 @@ ${context || "(El horario está vacío.)"}
 
 PREGUNTA: ${question}`;
 
-    const url =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" +
-      encodeURIComponent(key);
+    // Probamos varios modelos: si uno no tiene cupo gratis (limit 0) o no existe,
+    // pasamos al siguiente. El primero que responda gana.
+    const models = [
+      "gemini-2.5-flash",
+      "gemini-2.5-flash-lite",
+      "gemini-2.0-flash",
+      "gemini-flash-latest",
+    ];
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-    });
+    let lastError = "No se pudo obtener respuesta de la IA.";
+    for (const model of models) {
+      const url =
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=` +
+        encodeURIComponent(key);
 
-    const data = await res.json();
-    if (data.error) {
-      return NextResponse.json({ error: data.error.message }, { status: 500 });
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+      });
+
+      const data = await res.json();
+
+      if (!data.error) {
+        const answer = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        if (answer) return NextResponse.json({ answer, model });
+      } else {
+        lastError = data.error.message;
+        // 429 (cupo) o 404 (modelo no disponible) -> intentar el siguiente modelo
+        const code = data.error.code;
+        if (code !== 429 && code !== 404) break;
+      }
     }
 
-    const answer = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    return NextResponse.json({ answer });
+    return NextResponse.json({ error: lastError }, { status: 500 });
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
