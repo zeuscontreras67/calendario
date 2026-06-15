@@ -6,15 +6,20 @@
   color-scheme: dark;
 }
 
-html,
+html {
+  /* fondo profundo con un halo arriba — va en HTML (capa más al fondo)
+     para no tapar las capas decorativas (-z) como el 3D, la cuadrícula y los halos */
+  background:
+    radial-gradient(1200px 620px at 50% -8%, #161d35 0%, #0a0e1a 46%, #06080f 100%);
+  background-attachment: fixed;
+  min-height: 100%;
+}
+
 body {
   padding: 0;
   margin: 0;
   color: #e2e8f0;
-  /* fondo profundo con un halo arriba */
-  background:
-    radial-gradient(1200px 620px at 50% -8%, #161d35 0%, #0a0e1a 46%, #06080f 100%);
-  background-attachment: fixed;
+  background: transparent; /* transparente para que se vean las capas de fondo */
 }
 
 /* scrollbar sutil */
