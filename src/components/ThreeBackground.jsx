@@ -28,29 +28,30 @@ export default function ThreeBackground() {
       renderer.setSize(w, h);
       el.appendChild(renderer.domElement);
 
-      // Grupo central: dos mallas wireframe concéntricas
+      // Grupo central: dos mallas wireframe concéntricas, en la zona superior
       const group = new THREE.Group();
       const outer = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(2.6, 1),
-        new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.45 })
+        new THREE.IcosahedronGeometry(2.1, 1),
+        new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.5 })
       );
       const inner = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.7, 0),
-        new THREE.MeshBasicMaterial({ color: 0x818cf8, wireframe: true, transparent: true, opacity: 0.35 })
+        new THREE.IcosahedronGeometry(1.35, 0),
+        new THREE.MeshBasicMaterial({ color: 0x818cf8, wireframe: true, transparent: true, opacity: 0.4 })
       );
       group.add(outer);
       group.add(inner);
+      group.position.set(2.6, 2.6, 0); // arriba a la derecha, fuera del panel
       scene.add(group);
 
-      // Campo de partículas
-      const N = 500;
+      // Campo de partículas (cubre toda la pantalla, incluidos los márgenes)
+      const N = 650;
       const pos = new Float32Array(N * 3);
-      for (let i = 0; i < N * 3; i++) pos[i] = (Math.random() - 0.5) * 24;
+      for (let i = 0; i < N * 3; i++) pos[i] = (Math.random() - 0.5) * 28;
       const pgeo = new THREE.BufferGeometry();
       pgeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
       const particles = new THREE.Points(
         pgeo,
-        new THREE.PointsMaterial({ color: 0xa5b4fc, size: 0.035, transparent: true, opacity: 0.55 })
+        new THREE.PointsMaterial({ color: 0xa5b4fc, size: 0.05, transparent: true, opacity: 0.7 })
       );
       scene.add(particles);
 
