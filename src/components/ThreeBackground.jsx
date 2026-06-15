@@ -28,30 +28,30 @@ export default function ThreeBackground() {
       renderer.setSize(w, h);
       el.appendChild(renderer.domElement);
 
-      // Grupo central: dos mallas wireframe concéntricas, en la zona superior
+      // Grupo: dos mallas wireframe concéntricas, brillantes, en la zona superior derecha
       const group = new THREE.Group();
       const outer = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(2.1, 1),
-        new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.5 })
+        new THREE.IcosahedronGeometry(2.7, 1),
+        new THREE.MeshBasicMaterial({ color: 0x93c5fd, wireframe: true, transparent: true, opacity: 0.85 })
       );
       const inner = new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.35, 0),
-        new THREE.MeshBasicMaterial({ color: 0x818cf8, wireframe: true, transparent: true, opacity: 0.4 })
+        new THREE.IcosahedronGeometry(1.7, 0),
+        new THREE.MeshBasicMaterial({ color: 0xc4b5fd, wireframe: true, transparent: true, opacity: 0.7 })
       );
       group.add(outer);
       group.add(inner);
-      group.position.set(2.6, 2.6, 0); // arriba a la derecha, fuera del panel
+      group.position.set(3.2, 2.3, 0); // arriba a la derecha, visible sobre el fondo
       scene.add(group);
 
-      // Campo de partículas (cubre toda la pantalla, incluidos los márgenes)
-      const N = 650;
+      // Campo de partículas brillante (cubre toda la pantalla, incluidos los márgenes)
+      const N = 1000;
       const pos = new Float32Array(N * 3);
-      for (let i = 0; i < N * 3; i++) pos[i] = (Math.random() - 0.5) * 28;
+      for (let i = 0; i < N * 3; i++) pos[i] = (Math.random() - 0.5) * 30;
       const pgeo = new THREE.BufferGeometry();
       pgeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
       const particles = new THREE.Points(
         pgeo,
-        new THREE.PointsMaterial({ color: 0xa5b4fc, size: 0.05, transparent: true, opacity: 0.7 })
+        new THREE.PointsMaterial({ color: 0xe0e7ff, size: 0.08, transparent: true, opacity: 0.9 })
       );
       scene.add(particles);
 
@@ -116,5 +116,5 @@ export default function ThreeBackground() {
     };
   }, []);
 
-  return <div ref={ref} className="pointer-events-none fixed inset-0 -z-10 opacity-80" />;
+  return <div ref={ref} className="pointer-events-none fixed inset-0 -z-10" />;
 }
