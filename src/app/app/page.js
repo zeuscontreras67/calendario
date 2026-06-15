@@ -61,7 +61,21 @@ export default function AppPage() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+    <main className="relative min-h-screen overflow-hidden">
+      {/* fondo animado con glows */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute -top-32 left-1/4 h-[440px] w-[440px] -translate-x-1/2 rounded-full bg-brand-600/25 blur-[130px] animate-blob" />
+        <div
+          className="absolute bottom-0 right-1/4 h-[380px] w-[380px] translate-x-1/2 rounded-full bg-fuchsia-500/15 blur-[130px] animate-blob"
+          style={{ animationDelay: "3s" }}
+        />
+        <div
+          className="absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px] animate-blob"
+          style={{ animationDelay: "6s" }}
+        />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
       <header className="mb-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-600">
@@ -80,15 +94,18 @@ export default function AppPage() {
         </div>
       </header>
 
-      <h1 className="mb-1 text-2xl font-bold">Tu horario</h1>
+      <h1 className="mb-1 bg-gradient-to-r from-white to-brand-300 bg-clip-text text-3xl font-extrabold tracking-tight text-transparent">
+        Tu horario
+      </h1>
       <p className="mb-6 text-sm text-slate-400">
-        Toca cualquier casilla para escribir tus pendientes. Se guarda solo en tu cuenta.
+        Toca cualquier casilla para añadir pendientes con emoji y color según su urgencia. Se guarda solo en tu cuenta.
       </p>
 
       <Schedule userId={user.id} />
 
       <div className="mt-6">
         <AskAI userId={user.id} />
+      </div>
       </div>
     </main>
   );

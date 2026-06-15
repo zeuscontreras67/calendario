@@ -25,12 +25,15 @@ export default function AskAI({ userId }) {
       // Trae las notas del usuario y arma el contexto
       const { data } = await supabase
         .from("notes")
-        .select("day,hour,content")
+        .select("day,hour,content,urgency")
         .eq("user_id", userId);
       const context =
         (data || [])
           .filter((r) => r.content?.trim())
-          .map((r) => `- ${DAYS[r.day]}, ${hourLabel(r.hour)}: ${r.content.replace(/\n/g, " ")}`)
+          .map(
+            (r) =>
+              `- ${DAYS[r.day]}, ${hourLabel(r.hour)} [urgencia ${r.urgency || "media"}]: ${r.content.replace(/\n/g, " ")}`
+          )
           .join("\n") || "(El horario está vacío.)";
 
       const res = await fetch("/api/ask", {

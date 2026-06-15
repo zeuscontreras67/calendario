@@ -27,9 +27,10 @@ create table if not exists public.notes (
   day         smallint not null check (day  >= 0 and day  <= 6),
   hour        smallint not null check (hour >= 0 and hour <= 23),
   content     text not null default '',
-  updated_at  timestamptz not null default now(),
-  -- Garantiza: una sola nota por (usuario, día, hora)
-  unique (user_id, day, hour)
+  urgency     text not null default 'media',   -- baja | media | alta
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+  -- Se permiten VARIOS pendientes por (usuario, día, hora)
 );
 
 create index if not exists notes_user_idx on public.notes (user_id);
