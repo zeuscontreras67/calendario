@@ -6,6 +6,7 @@ import Link from "next/link";
 import { supabase, supabaseReady } from "@/lib/supabaseClient";
 import Schedule from "@/components/Schedule";
 import AskAI from "@/components/AskAI";
+import ThreeBackground from "@/components/ThreeBackground";
 import { CalendarDays, LogOut, Loader2 } from "lucide-react";
 
 export default function AppPage() {
@@ -62,18 +63,20 @@ export default function AppPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden">
-      {/* fondo animado con glows */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute -top-32 left-1/4 h-[440px] w-[440px] -translate-x-1/2 rounded-full bg-brand-600/25 blur-[130px] animate-blob" />
+      {/* Capa 1: halos de color (lo más al fondo) */}
+      <div className="pointer-events-none fixed inset-0 -z-20">
+        <div className="absolute -top-32 left-1/4 h-[440px] w-[440px] -translate-x-1/2 rounded-full bg-brand-600/20 blur-[130px] animate-blob" />
         <div
-          className="absolute bottom-0 right-1/4 h-[380px] w-[380px] translate-x-1/2 rounded-full bg-fuchsia-500/15 blur-[130px] animate-blob"
+          className="absolute bottom-0 right-1/4 h-[380px] w-[380px] translate-x-1/2 rounded-full bg-fuchsia-500/12 blur-[130px] animate-blob"
           style={{ animationDelay: "3s" }}
         />
-        <div
-          className="absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px] animate-blob"
-          style={{ animationDelay: "6s" }}
-        />
       </div>
+
+      {/* Capa 2: objeto 3D animado */}
+      <ThreeBackground />
+
+      {/* Capa 3: cuadrícula blueprint */}
+      <div className="grid-overlay pointer-events-none fixed inset-0 -z-10" />
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
       <header className="mb-6 flex items-center justify-between">

@@ -206,7 +206,7 @@ export default function Schedule({ userId }) {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="overflow-auto rounded-2xl border border-white/10 bg-slate-900/40 shadow-2xl shadow-brand-900/20 ring-1 ring-white/5"
+        className="panel overflow-auto rounded-2xl"
       >
         {loading ? (
           <div className="flex items-center justify-center gap-2 p-10 text-slate-400">
@@ -216,13 +216,13 @@ export default function Schedule({ userId }) {
           <table className="w-full min-w-[820px] border-collapse">
             <thead>
               <tr>
-                <th className="sticky left-0 z-10 bg-slate-800/90 p-2.5 text-xs font-semibold text-slate-300 backdrop-blur">
+                <th className="sticky left-0 z-10 border-b border-brand-500/30 bg-gradient-to-b from-brand-700/45 to-slate-800/85 p-2.5 text-xs font-semibold text-slate-200 backdrop-blur">
                   Hora
                 </th>
                 {DAYS.map((d, i) => (
                   <th
                     key={d}
-                    className="bg-slate-800/90 p-2.5 text-xs font-semibold text-slate-200 backdrop-blur"
+                    className="border-b border-brand-500/30 bg-gradient-to-b from-brand-700/45 to-slate-800/85 p-2.5 text-xs font-semibold text-slate-100 backdrop-blur"
                   >
                     <span className="hidden sm:inline">{d}</span>
                     <span className="sm:hidden">{DAYS_SHORT[i]}</span>

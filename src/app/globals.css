@@ -10,8 +10,11 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background: #0b1020;
   color: #e2e8f0;
+  /* fondo profundo con un halo arriba */
+  background:
+    radial-gradient(1200px 620px at 50% -8%, #161d35 0%, #0a0e1a 46%, #06080f 100%);
+  background-attachment: fixed;
 }
 
 /* scrollbar sutil */
@@ -24,10 +27,32 @@ body {
   border-radius: 8px;
 }
 
+/* Cuadrícula tipo blueprint para el fondo */
+.grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(129, 140, 248, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(129, 140, 248, 0.08) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 0%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 0%, #000 35%, transparent 100%);
+}
+
+/* Tarjeta de cristal (modales, IA) */
 .glass {
-  background: rgba(30, 41, 59, 0.55);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(99, 102, 241, 0.18);
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+/* Panel elevado y CLARO que resalta sobre el fondo (tabla del horario) */
+.panel {
+  background: linear-gradient(180deg, rgba(40, 51, 74, 0.92), rgba(23, 32, 54, 0.92));
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 40px 90px -30px rgba(79, 70, 229, 0.55),
+    0 10px 30px -15px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
 }
 
 .glow {
