@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #0b1020;
+  color: #e2e8f0;
+}
+
+/* scrollbar sutil */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 8px;
+}
+
+.glass {
+  background: rgba(30, 41, 59, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(99, 102, 241, 0.18);
+}
+
+.glow {
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25),
+    0 20px 60px -20px rgba(99, 102, 241, 0.45);
+}
